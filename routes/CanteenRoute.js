@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { CanteenController } = require('../controllers')
+const  CanteenController  = require('../controllers/CanteenController.js')
 
 router.get('/' , CanteenController.index)
 router.post('/', CanteenController.store)
