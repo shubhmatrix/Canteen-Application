@@ -1,44 +1,36 @@
 const employeeModel = require("../models/EmployeesModel")
-
 //login user
 const login = async (req, res, next) => {
     try {
-      const { phone, password } = req.body;
+      const { phone } = req.body;
       const employee = await employeeModel.findOne({ phone });
-      const isPasswordCorrect = await bcrypt.compare(password, employee.password);
-      if (!isPasswordCorrect) {
-        return res.status(422).json({
-          errors: { message: "PASSWORD_NOT_MATCH" },
-        });
-      }
+      console.log("Employees data successfully!", employee)
       return res.status(200).json({
         message:"Welcome"+"***"+ phone + "***" + "You Succesfully Login!",
       });
     }catch (error) {
+      console.log(error);
       return res.status(500).json({
-        success: false,
-        message:
-          "We are having some error while completing your request. Please try again after some time.",
-        error: error
-      });
+        error: {message:"We are having some error while completing your request. Please try again after some time.",}
+      })
     }
   };
 
-const getEmployees = async(res,req) => {
+const getdata = async(req,res) => {
     try {
         const getemployees = await employeeModel.find();
-        res.send(getemployees);
-        console.log("Employees data successfully!")
+        console.log("Employees data successfully!", getemployees)
+        return res.status(200).json({
+          getemployees
+        })
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
-        success: false,
-        message:
-          "We are having some error while completing your request. Please try again after some time.",
-        error: error
-      });
+        message: {message:"We are having some error while completing your request. Please try again after some time.",}
+      })
     }
 }
   module.exports = {
     login,
-    getEmployees
+    getdata
   };

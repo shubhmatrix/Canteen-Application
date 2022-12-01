@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CanteenModelSchema = new Schema({
-  
-  name: {type: String,require: true,},
+  foodItem: [{type: mongoose.Schema.Types.ObjectId,ref:"Food"}],
+  total:{type:Number,require:true,default:0},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
